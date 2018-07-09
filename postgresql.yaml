@@ -1,0 +1,52 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: postgresql
+  labels:
+    app: postgresql
+spec:
+  replicas: 1
+  template: 
+    metadata:
+      labels:
+        app: postgresql
+    spec:
+      volumes:
+        - name: postgresqldata
+          emptyDir: {}
+        - name: keys
+          secret:
+            secretName: postgresql-keys
+      containers:
+        - name: postgresql
+          image: ibmcom/isam-postgresql:9.0.4.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: Passw0rd
+            - name: POSTGRES_DB
+              value: isam
+            - name: POSTGRES_SSL_KEYDB
+              value: /var/local/server.crt
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgresqldata
+            - mountPath: /var/local
+              name: keys
+---
+# The service to connect to Postgresql. Note this is a cluster ip service only.
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql
+spec:
+  ports:
+    - port: 5432
+      name: postgresql
+      protocol: TCP
+  selector:
+    app: postgresql

@@ -1,0 +1,63 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: isamconfig
+  labels:
+    app: isamconfig
+spec:
+  replicas: 1
+  template: 
+    metadata:
+      labels:
+        app: isamconfig
+    spec:
+      volumes:
+        - name: isamconfigvol
+          emptyDir: {}
+      imagePullSecrets:
+        - name: dockerlogin
+      containers:
+        - name: isamconfig
+          image: store/ibmcorp/isam:9.0.5.0
+          ports:
+            - containerPort: 9443
+          volumeMounts:
+            - mountPath: /var/shared
+              name: isamconfigvol
+          securityContext:
+            capabilities:
+              add:
+                - SYS_PTRACE
+                - SYS_RESOURCE
+          env:
+            - name: SERVICE
+              value: config
+            - name: CONTAINER_TIMEZONE
+              value: America/Los_Angeles
+---
+# for external service access, see https://console.bluemix.net/docs/containers/cs_apps.html#cs_apps_public_nodeport
+apiVersion: v1
+kind: Service
+metadata:
+  name: isamconfig
+spec:
+  ports:
+    - port: 9443
+      name: isamconfig
+      protocol: TCP
+# make this one statically allocated and exposed to internet - comment this line out if you don't want to expose the LMI externally.
+      nodePort: 33543
+  selector:
+    app: isamconfig
+  type: NodePort
+---
+# This secret is created for the runtime and webseal containers to automatically retrieve the configuration snapshot via web service
+# These are the Base64 encoded versions of username: cfgsvc password: Passw0rd
+apiVersion: v1
+kind: Secret
+metadata:
+  name: configreader
+type: Opaque
+data:
+  username: Y2Znc3Zj
+  password: UGFzc3cwcmQ=

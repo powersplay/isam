@@ -1,0 +1,63 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: openldap
+  labels:
+    app: openldap
+spec:
+  replicas: 1
+  template: 
+    metadata:
+      labels:
+        app: openldap
+    spec:
+      volumes:
+        - name: ldaplib
+          emptyDir: {}
+        - name: ldapslapd
+          emptyDir: {}
+        - name: ldapsecauthority
+          emptyDir: {}
+        - name: keys
+          secret:
+            secretName: openldap-keys
+      containers:
+        - name: openldap
+          image: ibmcom/isam-openldap:9.0.5.0
+          args: ["--copy-service"]
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 636
+          env:
+            - name: LDAP_DOMAIN
+              value: ibm.com
+            - name: LDAP_ADMIN_PASSWORD
+              value: Passw0rd
+            - name: LDAP_CONFIG_PASSWORD
+              value: Passw0rd
+          volumeMounts:
+            - mountPath: /var/lib/ldap
+              name: ldaplib
+            - mountPath: /etc/ldap/slapd.d
+              name: ldapslapd
+            - mountPath: /var/lib/ldap.secAuthority
+              name: ldapsecauthority
+            - mountPath: /container/service/slapd/assets/certs
+              name: keys
+---
+# The service to connect to OpenLDAP. For external service access, see https://console.bluemix.net/docs/containers/cs_apps.html#cs_apps_public_nodeport
+apiVersion: v1
+kind: Service
+metadata:
+  name: openldap
+  labels:
+    app: openldap
+spec:
+  ports:
+    - port: 636
+      name: ldaps
+      protocol: TCP
+#      nodePort: 30636
+  selector:
+    app: openldap
+#  type: NodePort

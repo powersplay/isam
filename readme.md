@@ -53,10 +53,11 @@ The following architecture diagram shows the containers that are essential to th
 
 The following are required for this Solution Brief.
 
+- [Docker Community Edition for Mac](https://store.docker.com/editions/community/docker-ce-desktop-mac)
+- [Docker Enterprise Edition 2.0 UCP 3.0.2](https://store.docker.com/search?offering=enterprise&type=edition)
 - Free subscription to the [IBM Security Access Manager 9.0.5.0](https://store.docker.com/images/ibm-security-access-manager) Docker image.
 - [IBM ISAM OpenLDAP 9.0.5](https://hub.docker.com/r/ibmcom/isam-openldap/)
 - [IBM ISAM PostgreSQL 9.0.5](https://hub.docker.com/r/ibmcom/isam-postgresql/)
-- [Docker Enterprise Edition 2.0 UCP 3.0.2](https://store.docker.com/search?offering=enterprise&type=edition)
 - [IBM Security Access Manager openldap.yaml, postgres.yml, and isamconfig.yaml](https://github.com/docker)
 - [isam-deploy - script for auto deployment](https://github.com/)
 - [Create Docker ID](https://hub.docker.com/)
@@ -86,9 +87,9 @@ Log into [store.docker.com](https://store.docker.com) and follow the instruction
 
 2. Navigate to the new directory and run the command:
     ```
-    $ git clone https://github.com/docker/isam
+    $ git clone https://github.com/powersplay/isam
     ```
-3. If Kubernetes is not already enabled, access the top menu bar of your desktop, and click on **Preferences**.  Click on **Kubernetes** and choose the **Enable Kubernetes** check box.  Click on **Apply** to restart Docker for Mac with Kubernetes enabled.  <BR> <BR>
+3. If Kubernetes is not already enabled, access the Docker icon in the top menu bar of your desktop, and click on **Preferences**.  Click on **Kubernetes** and choose the **Enable Kubernetes** check box.  Click on **Apply** to restart Docker for Mac with Kubernetes enabled.  <BR> <BR>
 ![D4M Menu](./images/D4M-menu.png "D4M Menu") ![D4M k8s Menu](./images/D4Mk8s-menu.png "D4M k8s Menu")
 
 4. In a browser and using a previously created [Docker ID](https://hub.docker.com), log into [Docker Store](https://store.docker.com).  Subscribe to the [IBM Security Access Manager](https://store.docker.com/images/ibm-security-access-manager) image. This image is free. Here are the example steps to subscribe to the image.<BR> <BR>
@@ -125,7 +126,7 @@ This allows CLI commands to execute against the UCP instance by setting up the a
     $ kubectl create secret docker-registry dockerlogin --docker-username=<USERNAME> --docker-password=<PASSWORD> --docker-email=<EMAIL_ADDRESS>
     ```
 
-## Verifying the Deployment (Docker EE)
+## Deploy and Verify the Application
 
 To launch and verify the deployment, navigate to the directory that contains the `openldap.yaml`, `postgres.yaml`, and `isamconfig.yaml files.  Execute:
 

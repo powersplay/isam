@@ -1,0 +1,5 @@
+kubectl delete deployments openldap postgresql isamconfig
+kubectl delete services openldap postgresql
+kubectl delete secrets openldap-keys postgresql-keys dockerlogin configreader
+sleep 10
+kubectl get pods

@@ -189,8 +189,31 @@ Most Kubernetes monitoring and troubleshooting can be accomplished by viewing th
 
 To learn more about Docker Logging Best Practices, please consult [Docker Reference Architecture: Docker Logging Design and Best Practices](https://success.docker.com/article/logging-best-practices).
 
-IBM provides a general troubleshooting guide at [https://www.ibm.com/support/knowledgecenter/SSPREK_9.0.4/com.ibm.isam.doc/landing/trouble_landing.html](https://www.ibm.com/support/knowledgecenter/SSPREK_9.0.4/com.ibm.isam.doc/landing/trouble_landing.html)
+## Removing the Environment
 
+The ISAM deployment can be removed from UCP by navigating to the `isam` directory and executing the script:
+```
+ $ ./delkube
+   This script will delete ISAM openldap, postgresql, and isamconfig deployments on the target Docker EE 2.0 System.  Do you want to continue? Y,N Y
+```
+Example Output:
+```
+   +++Deleting deployments...
+   deployment.extensions "openldap" deleted
+   deployment.extensions "postgresql" deleted
+   deployment.extensions "isamconfig" deleted
+   +++Deleting services...
+   service "openldap" deleted
+   service "postgresql" deleted
+   service "isamconfig" deleted
+   +++Deleting secrets...
+   secret "openldap-keys" deleted
+   secret "postgresql-keys" deleted
+   secret "dockerlogin" deleted
+   secret "configreader" deleted (slight pause)
+   No resources found.
+
+```
 ## Further Reading and Contacts
 
 Detailed IBM documentation is at [https://www.ibm.com/support/knowledgecenter/SSPREK_9.0.4/com.ibm.isam.doc/admin/concept/con_docker_support.html](ttps://www.ibm.com/support/knowledgecenter/SSPREK_9.0.4/com.ibm.isam.doc/admin/concept/con_docker_support.html)

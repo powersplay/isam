@@ -15,7 +15,7 @@ case $RESPONSE in
            kubectl create -f openldap.yaml
            kubectl get pods
            kubectl get svc openldap
-           echo
+           echo 
            echo +++ Deploying Postgresql
            echo +++ Create key and certificate files for Postgresql
            openssl req -x509 -newkey rsa:4096 -keyout "postgres.key" -out "postgres.crt" -days 365 -subj "/C=US/ST=CA/L=SFO/O=Docker/CN=Postgresql" -nodes

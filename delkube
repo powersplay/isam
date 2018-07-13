@@ -1,13 +1,13 @@
 !#/bin/bash
 
-echo "This script will delete the the IBM Resourses openldap, postgresql, and isamconfig on the target Docker EE 2.0 System.  Do you want to continue? Y,N"
+echo "This script will delete ISAM openldap, postgresql, and isamconfig deployments on the target Docker EE 2.0 System.  Do you want to continue? Y,N"
 read RESPONSE
 
 case $RESPONSE in 
    [yY]* ) echo "+++Deleting deployments..."
            kubectl delete deployments openldap postgresql isamconfig
            echo "+++Deleting services..."
-           kubectl delete services openldap postgresql
+           kubectl delete services openldap postgresql isamconfig
            echo "+++Deleting secrets..."
            kubectl delete secrets openldap-keys postgresql-keys dockerlogin configreader
            sleep 10

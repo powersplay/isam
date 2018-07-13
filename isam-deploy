@@ -9,7 +9,7 @@ case $RESPONSE in
            cp ldap.crt ca.crt
            echo +++ Create a Diffie-Hellman parameter file for OpenLdap
            openssl dhparam -out "dhparam.pem" 2048
-           echo +++ Create a Kubernetes Secret
+           echo +++ Create a Kubernetes Secret for Ldap
            kubectl create secret generic openldap-keys --from-file "ldap.crt" --from-file "ldap.key" --from-file "ca.crt" --from-file "dhparam.pem"
            echo +++ Create the K8s Deployment and Service
            kubectl create -f openldap.yaml

@@ -26,7 +26,9 @@ uniqueid: KB000695
 
 Docker Solution Briefs enable you to integrate the Docker Enterprise Edition (EE) container platform with popular 3rd party ecosystem solutions for networking, load balancing, storage, logging and monitoring, access management, and more. This Solution Brief describes basic information about how to obtain, configure, and deploy IBM Security Access Manager via Kubernetes on Docker Enterprise Edition.
 
-This Solution Brief follows the structure, setup, and process described by IBM's blog [Running ISAM on IBM Cloud](https://www.ibm.com/blogs/sweeden/running-isam-ibm-cloud/).  This blog explains, in detail, the purpose and function of each command of the deployment.  The purpose of this Solution Brief is to layer-on the steps to implement IBM Security Access Manager on Docker Enterprise Edition 2.0.  To simplify the process and avoid overlap and redundancy, this guide provides scripts that can be used for easy setup. A Swarm orchestrator version of Docker EE 17.06 for IBM Security Access Management is available at the [Docker Success Center](https://success.docker.com)
+This Solution Brief follows the structure, setup, and process described by IBM's blog [Running ISAM on IBM Cloud](https://www.ibm.com/blogs/sweeden/running-isam-ibm-cloud/).  This blog explains, in detail, the purpose and function of each command of the deployment.  The purpose of this Solution Brief is to layer-on the steps to implement IBM Security Access Manager 9.0.5.0 on Docker Enterprise Edition 2.0.  To simplify the process and avoid overlap and redundancy, this guide provides scripts that can be used for easy setup. 
+
+Whereas this Solution Brief focuses on orchestration with Kubernetes, a Swarm orchestrator version of IBM Security Access Management for Docker EE 17.06 is available at the [Docker Success Center](https://success.docker.com)
 
 > Information on IBM Security Access Manager is provided by Docker as a known, working configuration for Docker Enterprise Edition 2.0. Docker does not support IBM Security Access Manager. Please contact the vendor approved support methods if you have any questions or problems with them.
 
@@ -88,12 +90,13 @@ Log into [store.docker.com](https://store.docker.com) and follow the instruction
 2. Run the commands: 
     ```
     $ git clone https://github.com/powersplay/isam
-    ```
     $ cd isam
+    ```
+    
 3. If Kubernetes is not already enabled, access the Docker icon in the top menu bar of your desktop, and click on **Preferences**.  Click on **Kubernetes** and choose the **Enable Kubernetes** check box.  Click on **Apply** to restart Docker for Mac with Kubernetes enabled.  <BR> <BR>
 ![D4M Menu](./images/D4M-menu.png "D4M Menu") ![D4M k8s Menu](./images/D4Mk8s-menu.png "D4M k8s Menu")
 
-4. In a browser and using a previously created [Docker ID](https://hub.docker.com), log into [Docker Store](https://store.docker.com).  Subscribe to the [IBM Security Access Manager](https://store.docker.com/images/ibm-security-access-manager) image. This image is free. Here are the example steps to subscribe to the image.<BR> <BR>
+4. In a browser and using the [Docker ID] used in step 1, log into [Docker Store](https://store.docker.com).  Subscribe to the [IBM Security Access Manager](https://store.docker.com/images/ibm-security-access-manager) image. This image is free. Here are the example steps to subscribe to the image.<BR> <BR>
 ![ISAM Store Page](./images/ISAM-Product-Page.png "ISAM Store Page")
 Subscription Screen:
 ![ISAM Content](./images/ISAM-Subscription.png "Get ISAM Content")
@@ -102,13 +105,13 @@ Subscription Screen:
 ![Login Screen](./images/UCP-Admin-Login.png) 
 
 6. Check that the Node manager and workers are all setup for "mixed" type workload.
-This can be changed by selecting the node and clicking the `Configure` button in the top right corner. (NOTE `Admin` user privileges are required for this step) <BR>
+This can be changed by selecting the node and clicking the `Configure` button in the top right corner. (NOTE changing node types requires `Admin` user privileges) <BR>
 ![Node Type](./images/UCP-Node-Type.png)
 
 7. Within UCP, navigate to the `Admin` or `{username}` tab in the upper left corner, and choose **My Profile** from the drop down menu.  <BR>
 ![UCP Admin MyProfile](./images/UCP-Admin-MyProfile.png "UCP Admin MyProfle")
 
-8. On the **Profile** page, click on **New Client Bundle** and , and find the `client-bundle-{user}.zip` file that is downloaded to the local system.
+8. On the **Profile** page, click on **New Client Bundle**. This downloads `client-bundle-{user}.zip` the local system.
 ![UCP Admin Client Bundle](./images/UCP-Admin-ClientBundle.png "UCP Admin Client Bundle")
 
 9. In the terminal window, move the client bundle (`ucp-bundle-{username}.zip`) into the created directory and `unzip` the bundle.  Example:
@@ -170,14 +173,6 @@ The ISAM configuration container is now deployed and ready for use.  In a separa
 
 ![Console](./images/Console.png "Console")
 
-## Removing the Environment
-> 
-> The ISAM environment can be removed by navigating to the `isam` directory and executing the script:
-```
- $ ./delkube
-   This script will delete ISAM openldap, postgresql, and isamconfig deployments on the target Docker EE 2.0 System.  Do you want to continue? Y,N
-```
-
 ## Next Steps
 
 There are several more configuration steps that need to be taken for a fully functional IBM Security Access Manager deployment.  These include:
@@ -188,13 +183,9 @@ There are several more configuration steps that need to be taken for a fully fun
 
 These steps are described in detail at the IBM Blog: https://www.ibm.com/blogs/sweeden/running-isam-ibm-cloud/
 
-## Migrating an Existing Appliance to Docker EE and Restrictions
-
-Existing non-container implementations of the IBM Security Access Manager can migrate to the new Docker EE deployment by importing a snapshot of the existing configuration. However there are several ISAM restrictions to consider when in a Docker environment. Details and restrictions can be found on   [https://www.ibm.com/support/knowledgecenter/SSPREK_9.0.4/com.ibm.isam.doc/admin/concept/con_docker_file_isam.html](https://www.ibm.com/support/knowledgecenter/SSPREK_9.0.4/com.ibm.isam.doc/admin/concept/con_docker_file_isam.html)
-
 ## Monitoring and Troubleshooting
 
-Most Docker-related monitoring and troubleshooting can be accomplished by viewing the log  of the config container: `docker service logs isam_isam-config` (check `docker ps` for the actual name of the config container).
+Most Kubernetes monitoring and troubleshooting can be accomplished by viewing the log of the `isamconfig` pod.  Under the `Kubernetes` tab in the left hand menu, click on `Pods` then select the `isamconfig` pod.  On the right hand menu a `View Log` button will appear.  Click to inspect the log of this pod.
 
 To learn more about Docker Logging Best Practices, please consult [Docker Reference Architecture: Docker Logging Design and Best Practices](https://success.docker.com/article/logging-best-practices).
 

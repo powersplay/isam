@@ -1,5 +1,19 @@
-kubectl delete deployments openldap postgresql isamconfig
-kubectl delete services openldap postgresql
-kubectl delete secrets openldap-keys postgresql-keys dockerlogin configreader
-sleep 10
-kubectl get pods
+!#/bin/bash
+
+echo "This script will delete the the IBM Resourses openldap, postgresql, and isamconfig on the target Docker EE 2.0 System.  Do you want to continue? Y,N"
+read RESPONSE
+
+case $RESPONSE in 
+   [yY]* ) echo "+++Deleting deployments..."
+           kubectl delete deployments openldap postgresql isamconfig
+           echo "+++Deleting services..."
+           kubectl delete services openldap postgresql
+           echo "+++Deleting secrets..."
+           kubectl delete secrets openldap-keys postgresql-keys dockerlogin configreader
+           sleep 10
+           kubectl get pods
+           exit;;
+   [nN]* ) echo "No action.  Exiting"
+           exit;;
+   * )     echo "Y or N, please"
+esac

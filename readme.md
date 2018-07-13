@@ -53,7 +53,7 @@ The following architecture diagram shows the containers that are essential to th
 
 The following are required for this Solution Brief.
 
-- [Docker Community Edition for Mac](https://store.docker.com/editions/community/docker-ce-desktop-mac)
+- [Docker Community Edition for Mac 18.05 edge or above](https://store.docker.com/editions/community/docker-ce-desktop-mac)
 - [Docker Enterprise Edition 2.0 UCP 3.0.2](https://store.docker.com/search?offering=enterprise&type=edition)
 - Free subscription to the [IBM Security Access Manager 9.0.5.0](https://store.docker.com/images/ibm-security-access-manager) Docker image.
 - [IBM ISAM OpenLDAP 9.0.5](https://hub.docker.com/r/ibmcom/isam-openldap/)
@@ -83,12 +83,13 @@ Log into [store.docker.com](https://store.docker.com) and follow the instruction
 
 ### Setup Docker for Mac/Linux Environment
 
-1. Open a Terminal window and create a new directory.  Make sure you are logged into Docker (`$ docker login`)  Install the `git` utility if not already installed.
+1. Open a Terminal window.  Make sure you are logged into Docker (`$ docker login`)  Install the `git` utility if not already installed.
 
-2. Navigate to the new directory and run the command:
+2. Run the commands: 
     ```
     $ git clone https://github.com/powersplay/isam
     ```
+    $ cd isam
 3. If Kubernetes is not already enabled, access the Docker icon in the top menu bar of your desktop, and click on **Preferences**.  Click on **Kubernetes** and choose the **Enable Kubernetes** check box.  Click on **Apply** to restart Docker for Mac with Kubernetes enabled.  <BR> <BR>
 ![D4M Menu](./images/D4M-menu.png "D4M Menu") ![D4M k8s Menu](./images/D4Mk8s-menu.png "D4M k8s Menu")
 
@@ -128,14 +129,16 @@ This allows CLI commands to execute against the UCP instance by setting up the a
 
 ## Deploy and Verify the Application
 
-To launch and verify the deployment, navigate to the directory that contains the `openldap.yaml`, `postgres.yaml`, and `isamconfig.yaml files.  Execute:
+To launch and verify the deployment, navigate to the `isam` directory that contains the `openldap.yaml`, `postgres.yaml`, and `isamconfig.yaml` files. This bash script automates the creation of certificates and launches the containers. Execute:
 
 ```
 $ ./isam-deploy
+  This script performs the orchestration of IBM Security Access Manager on Docker Enterprise Edition 2.0. See https://www.ibm.com/blogs/sweeden/running-isam-ibm-cloud/ for detailed description of each step. Do you want to continue? Y,n
+Y
 ```
 
 Example Output:
-```bash
+```
 +++ Create key and certificate files for OpenLDAP
 
 ...
@@ -169,20 +172,11 @@ The ISAM configuration container is now deployed and ready for use.  In a separa
 
 ## Removing the Environment
 > 
-> The ISAM environment can be removed by navigating to the `Controllers` section under the Kubernetes tab and removing all the controllers as shown below. 
-
-![UCP Remove Controllers](./images/UCP-Remove-Controllers.png "Remove Controllers")
-
-> Remove the previously installed secrets by navigating to the `Configuration` tab
->
-
-![UCP Remove Secrets](./images/UCP-Remove-Secrets.png "UCP Remove Secrets")
-
-> In the terminal window:
+> The ISAM environment can be removed by navigating to the `isam` directory and executing the script:
 ```
- $ kubernetes get pods
+ $ ./delkube
+   This script will delete ISAM openldap, postgresql, and isamconfig deployments on the target Docker EE 2.0 System.  Do you want to continue? Y,N
 ```
-This will show `No resources found.`,  indicating that the pods have been successfully removed.
 
 ## Next Steps
 

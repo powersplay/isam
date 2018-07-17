@@ -24,7 +24,7 @@ uniqueid: KB000695
 
 ## Overview
 
-Docker Solution Briefs enable you to integrate the Docker Enterprise Edition (EE) container platform with popular 3rd party ecosystem solutions for networking, load balancing, storage, logging and monitoring, access management, and more. This Solution Brief describes basic information about how to obtain, configure, and deploy IBM Security Access Manager via Kubernetes on Docker Enterprise Edition.
+Docker Solution Briefs enable you to integrate the Docker Enterprise Edition (EE) container platform with popular 3rd party ecosystem solutions for networking, load balancing, storage, logging, monitoring, and access management. This Solution Brief describes basic information about how to obtain, configure, and deploy IBM Security Access Manager via Kubernetes on Docker Enterprise Edition.
 
 This Solution Brief follows the structure, setup, and process described by IBM's blog [Running ISAM on IBM Cloud](https://www.ibm.com/blogs/sweeden/running-isam-ibm-cloud/).  This blog explains, in detail, the purpose and function of each command of the deployment.  The purpose of this Solution Brief is to layer-on the steps to implement IBM Security Access Manager 9.0.5.0 on Docker Enterprise Edition 2.0.  To simplify the process and avoid overlap and redundancy, this guide provides scripts that can be used for easy setup. 
 
@@ -60,8 +60,8 @@ The following are required for this Solution Brief.
 - Free subscription to the [IBM Security Access Manager 9.0.5.0](https://store.docker.com/images/ibm-security-access-manager) Docker image.
 - [IBM ISAM OpenLDAP 9.0.5](https://hub.docker.com/r/ibmcom/isam-openldap/)
 - [IBM ISAM PostgreSQL 9.0.5](https://hub.docker.com/r/ibmcom/isam-postgresql/)
-- [IBM Security Access Manager openldap.yaml, postgres.yml, and isamconfig.yaml](https://github.com/docker)
-- [isam-deploy - script for auto deployment](https://github.com/)
+- [IBM Security Access Manager openldap.yaml, postgres.yml, and isamconfig.yaml](https://github.com/powersplay/isam)
+- [isam-deploy - script for auto deployment](https://github.com/powersplay/isam)
 - [Create Docker ID](https://hub.docker.com/)
 - [Subscribe to IBM Security Access on Docker Store](https://store.docker.com/images/ibm-security-access-manager)
 
@@ -109,12 +109,12 @@ This can be changed by selecting the node and clicking the `Configure` button in
 ![Node Type](./images/UCP-Node-Type.png)
 
 7. Within UCP, navigate to the `Admin` or `{username}` tab in the upper left corner, and choose **My Profile** from the drop down menu.  <BR>
-![UCP Admin MyProfile](./images/UCP-Admin-MyProfile.png "UCP Admin MyProfle")
+![UCP Admin MyProfile](./images/ç "UCP Admin MyProfle")
 
 8. On the **Profile** page, click on **New Client Bundle**. This downloads `client-bundle-{user}.zip` the local system.
 ![UCP Admin Client Bundle](./images/UCP-Admin-ClientBundle.png "UCP Admin Client Bundle")
 
-9. In the terminal window, move the client bundle (`ucp-bundle-{username}.zip`) into the created directory and `unzip` the bundle.  Example:
+9. In the terminal window, move the client bundle (`ucp-bundle-{username}.zip`) into the `isam` directory and `unzip` the bundle.  Example:
     ```
     $ cp ~/Downloads/ucp-bundle-admin.zip .
     $ unzip ucp-bundle-admin.zip
@@ -165,7 +165,7 @@ openldap-5bb569c584-pplsg     1/1       Running   0          57s
 postgresql-8dd9f878c-rwt2g    1/1       Running   0          29s
 DONE!!!
 ```
-> After a short time, the state of the deployment also can be shown through the UCP user interface.  All pods should show green status. 
+> After several minutes, the state of the deployment also can be shown through the UCP user interface.  The pod status will show green when the deployment is done.  (Screen refresh may be necessary) 
 
 ![State](./images/ISAM-Verification.png "State")
 
@@ -181,7 +181,7 @@ There are several more configuration steps that need to be taken for a fully fun
 - Configuring ISAM through the LMI including re-publishing a snapshot
 - Sanity testing a basic Scenario
 
-These steps are described in detail at the IBM Blog: https://www.ibm.com/blogs/sweeden/running-isam-ibm-cloud/
+These steps are described in detail at the [IBM Blog](https://www.ibm.com/blogs/sweeden/running-isam-ibm-cloud/).
 
 ## Monitoring and Troubleshooting
 
@@ -214,11 +214,11 @@ Example Output:
    No resources found.
 
 ```
+The deployment has been retired from the UCP configuration.
+
 ## Further Reading and Contacts
 
-Detailed IBM documentation is at [https://www.ibm.com/support/knowledgecenter/SSPREK_9.0.4/com.ibm.isam.doc/admin/concept/con_docker_support.html](ttps://www.ibm.com/support/knowledgecenter/SSPREK_9.0.4/com.ibm.isam.doc/admin/concept/con_docker_support.html)
-
-A Docker specific installation and configuration video is available at [https://www.youtube.com/watch?v=hn-COJwNiyY](ttps://www.youtube.com/watch?v=hn-COJwNiyY).
+Detailed IBM documentation about Docker and Security Access Manager is at [The IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSPREK_9.0.4/com.ibm.isam.doc/admin/concept/con_docker_support.html).
 
 ## Additional Solution Briefs
 

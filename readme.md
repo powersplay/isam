@@ -111,7 +111,7 @@ This can be changed by selecting the node and clicking the `Configure` button in
 7. Within UCP, navigate to the `Admin` or `{username}` tab in the upper left corner, and choose **My Profile** from the drop down menu.  <BR>
 ![UCP Admin MyProfile](./images/UCP-Admin-MyProfile.png "UCP Admin MyProfle")
 
-8. On the **Profile** page, click on **New Client Bundle**. This downloads `client-bundle-{user}.zip` the local system.
+8. On the **Profile** page, click on **New Client Bundle**. This downloads `client-bundle-{user}.zip` to the local system.
 ![UCP Admin Client Bundle](./images/UCP-Admin-ClientBundle.png "UCP Admin Client Bundle")
 
 9. In the terminal window, move the client bundle (`ucp-bundle-{username}.zip`) into the `isam` directory and `unzip` the bundle.  Example:

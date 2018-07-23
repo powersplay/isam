@@ -57,7 +57,7 @@ The following are required for this Solution Brief.
 
 - [Docker Community Edition for Mac 18.05 edge or above](https://store.docker.com/editions/community/docker-ce-desktop-mac)
 - [Docker Enterprise Edition 2.0 UCP 3.0.2](https://store.docker.com/search?offering=enterprise&type=edition)
-- Free subscription to the [IBM Security Access Manager 9.0.5.0](https://store.docker.com/images/ibm-security-access-manager) Docker image.
+- Free download of the [IBM Security Access Manager 9.0.5.0](https://store.docker.com/images/ibm-security-access-manager) Docker image. License purchace or 60 day trial is available from IBM.
 - [IBM ISAM OpenLDAP 9.0.5](https://hub.docker.com/r/ibmcom/isam-openldap/)
 - [IBM ISAM PostgreSQL 9.0.5](https://hub.docker.com/r/ibmcom/isam-postgresql/)
 - [IBM Security Access Manager openldap.yaml, postgres.yml, and isamconfig.yaml](https://github.com/powersplay/isam)
@@ -96,7 +96,7 @@ Log into [store.docker.com](https://store.docker.com) and follow the instruction
 3. If Kubernetes is not already enabled, access the Docker icon in the top menu bar of your desktop, and click on **Preferences**.  Click on **Kubernetes** and choose the **Enable Kubernetes** check box.  Click on **Apply** to restart Docker for Mac with Kubernetes enabled.  <BR> <BR>
 ![D4M Menu](./images/D4M-menu.png "D4M Menu") ![D4M k8s Menu](./images/D4Mk8s-menu.png "D4M k8s Menu")
 
-4. In a browser and using the [Docker ID] used in step 1, log into [Docker Store](https://store.docker.com).  Subscribe to the [IBM Security Access Manager](https://store.docker.com/images/ibm-security-access-manager) image. This image is free. Here are the example steps to subscribe to the image.<BR> <BR>
+4. In a browser and using the [Docker ID] used in step 1, log into [Docker Store](https://store.docker.com).  Subscribe to the [IBM Security Access Manager](https://store.docker.com/images/ibm-security-access-manager) image. This image download is free. Here are the example steps to subscribe to the image.<BR> <BR>
 ![ISAM Store Page](./images/ISAM-Product-Page.png "ISAM Store Page")
 Subscription Screen:
 ![ISAM Content](./images/ISAM-Subscription.png "Get ISAM Content")
@@ -176,6 +176,7 @@ The ISAM configuration container is now deployed and ready for use.  In a separa
 ## Next Steps
 
 There are several more configuration steps that need to be taken for a fully functional IBM Security Access Manager deployment.  These include:
+- Activate the container.  This requires either uploading a valid license or trial license.
 - Deploying the ISAM Web Reverse Proxy Container
 - Deploying the ISAM Runtime Container
 - Configuring ISAM through the LMI including re-publishing a snapshot
